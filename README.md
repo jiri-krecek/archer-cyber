@@ -1,5 +1,5 @@
 <!--
-Version: 1.0
+Version: 1.1
 Author: Jiri Krecek
 Company: Archer Dynamics LLC (goarcherdynamics.com)
 License: MIT, free to use, modify, and distribute with attribution
@@ -8,29 +8,16 @@ design, and testing by the author.
 -->
 
 # archer-cyber
+---
 
 Security tooling and reference material from the Archer Dynamics lab.
 
-## wordlists/ai-endpoints.txt
+### Contents
 
-A wordlist of URL paths for finding AI/ML infrastructure with ffuf or similar tools. Standard wordlists are built around traditional web apps (`/users`, `/admin`) and miss the action-style paths AI services use (`/predict`, `/v2/models`, `/api/tags`).
+- `wordlists/` - URL path wordlists for finding AI/ML infrastructure with ffuf and similar tools. Currently holds `ai-endpoints.txt`, covering model servers, LLM runtimes, MLflow, Kubeflow, Ray, vector databases, Jupyter, MinIO and API documentation pages. Paths come from public project documentation and not every entry has been tested against a live service.
 
-It covers model servers (Triton, TorchServe, TensorFlow Serving), LLM runtimes (Ollama, vLLM, LiteLLM), lifecycle tools (MLflow, Kubeflow, Ray), vector databases (Qdrant, Weaviate, Chroma), Jupyter, MinIO, and the API documentation pages (`/docs`, `/openapi.json`) that expose a full route list.
+Use only against systems you own or have written permission to test.
 
-Paths are compiled from public project documentation. Not every entry has been validated against a live service, so expect some 404s. Entries are in ASCII sort order, one per line, with no comments.
-
-## Usage
-
-Point it at a port you found open. Many paths only exist on one service's port, so run it per port, not only against port 80.
-
-```bash
-ffuf -u http://TARGET:PORT/FUZZ -w wordlists/ai-endpoints.txt -mc 200,204,401,403,405
-```
-
-A 405 is worth keeping in the match list: it means the path exists but wants a different HTTP method, which is itself a fingerprint.
-
-Use this only against systems you own or have written permission to test.
-
-## License
+### License
 
 MIT, see [LICENSE](LICENSE).
