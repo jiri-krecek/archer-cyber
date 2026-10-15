@@ -8,7 +8,6 @@ design, and testing by the author.
 -->
 
 # archer-cyber
----
 
 Security tooling and reference material from the Archer Dynamics lab.
 
